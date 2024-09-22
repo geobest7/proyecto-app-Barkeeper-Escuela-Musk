@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Send a Message</h2>
+<form action="" method="post" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.subject.label(class="form-label") }}
+        {{ form.subject(class="form-control") }} 
+        {% for error in form.subject.errors %}
+            <span style="color:red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="mb-3">
+        {{ form.body.label(class="form-label") }}
+        {{ form.body(class="form-control", rows=4) }} 
+        {% for error in form.body.errors %}
+            <span style="color:red;">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div>
+        {{ form.submit(class="btn btn-primary") }} 
+    </div>
+</form>
+<a href="{{ url_for('message') }}" class="btn btn-secondary mt-3">Back to Messages</a>
+{% endblock %}

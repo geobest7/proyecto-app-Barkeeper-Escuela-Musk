@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body_class %}index-page{% endblock %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if current_user.is_authenticated %}
+        <h1 class="white-text">Welcome to your personalized homepage, {{ current_user.username }}!</h1>
+        <p>Here you can find content specific to your account.</p>
+        <!-- Add more content specific to authenticated users here -->
+    {% else %}
+        <h1 class="white-text">Welcome to Barkeeper</h1>
+        <p class="white-text">Please <a href="{{ url_for('login') }}">log in</a> or <a href="{{ url_for('registrer') }}">register</a> to get started.</p>
+    {% endif %}
+</div>
+{% endblock %}

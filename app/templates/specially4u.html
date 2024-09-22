@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+    
+    <h2>Select Fruits</h2>
+    {{ form.fruits_cb.label }}
+    {{ form.fruits_cb() }}
+    
+    <h2>Select Alcoholic Drinks</h2>
+    {{ form.alco_cb.label }}
+    {{ form.alco_cb() }}
+    
+    <h2>Select Non-Alcoholic Drinks</h2>
+    {{ form.onalco_cb.label }}
+    {{ form.onalco_cb() }}
+    
+    <h2>Select Others</h2>
+    {{ form.fothers_cb.label }}
+    {{ form.fothers_cb() }}
+    
+    <br>
+    {{ form.submit(class="btn btn_primary") }}
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+</form>
+
+{% if cocktails %}
+    <h2>Recommended Cocktails</h2>
+    <ul>
+    {% for cocktail in cocktails %}
+        <li>{{ cocktail }}</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

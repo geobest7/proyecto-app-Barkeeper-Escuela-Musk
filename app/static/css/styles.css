@@ -1,0 +1,12 @@
+/* Estilo para el fondo de la página principal */
+body.index-page {
+    background-image: url('../images/index-background.jpg');
+    background-size: cover; /* Asegura que la imagen cubra toda la página */
+    background-position: center; /* Centra la imagen en la página */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+}
+
+/* Estilo para el contenido de la página */
+.white-text {
+    color: white;
+}
