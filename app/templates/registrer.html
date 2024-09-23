@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Registration{% endblock %}
 
 {% block content %}
-    <h2>Registro</h2>
-    <form action="{{ url_for('registrer') }}" method="post" novalidate>
+    <h2>Registration</h2>
+    <form action="{{ url_for('register') }}" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div>
             {{ form.username.label }} {{ form.username(size=32) }} <br>

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Inicio de Sesión</h2>
+    <h2>Login</h2>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div>
@@ -23,4 +23,5 @@
             {{ form.submit() }} <br>
         </div>
     </form>
+    <p><a href="{{ url_for('request_password_reset') }}">Forgot your password? Click here to reset it.</a></p>
 {% endblock %}

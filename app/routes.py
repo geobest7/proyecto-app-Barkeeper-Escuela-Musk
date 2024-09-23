@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user
 from flask_babel import _
 
 from app import app, db, mail
-from app.forms import RegistrationForm, LoginForm, MessageForm, EvalForm, ResetPasswordRequestForm, SimpleForm
+from app.forms import RegistrationForm, LoginForm, MessageForm, EvalForm, ResetPasswordRequestForm, SimpleForm, ResetPasswordRequestForm
 from app.models import User, UserMessage
 from recommender.cocktailRecommender import CocktailRecommender  # Importar el recomendador
 
@@ -130,6 +130,16 @@ def send_message():
         return redirect(url_for('message'))
     
     return render_template('send_message.html', form=form)
+
+
+@app.route('/request_password_reset', methods=['GET', 'POST'])
+def request_password_reset():
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        # Lógica para enviar el correo de restablecimiento de contraseña
+        flash('Se ha enviado un correo con instrucciones para restablecer tu contraseña.', 'info')
+        return redirect(url_for('login'))
+    return render_template('request_password_reset.html', form=form)
 
 @app.route('/logout')
 def logout():

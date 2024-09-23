@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv  # Importa la función para cargar variables de entorno desde un archivo .env
 from datetime import timedelta  # Asegúrate de importar timedelta para configurar la expiración de la sesión
 
-
 # Define el directorio base como la carpeta que contiene este archivo
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -36,6 +35,9 @@ class Config(object):
 
     # Dirección predeterminada del remitente (siempre a donde se enviarán los correos)
     MAIL_DEFAULT_SENDER = os.environ.get('MAIL_DEFAULT_SENDER', MAIL_USERNAME)
+
+    # Dirección de correo del administrador
+    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', MAIL_USERNAME)  # Usa el mismo valor que MAIL_USERNAME si no está definido
     
     # Idiomas soportados
     LANGUAGES = ['en', 'es']

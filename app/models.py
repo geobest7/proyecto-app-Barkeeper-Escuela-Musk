@@ -1,5 +1,6 @@
-from datetime import datetime
-
+from datetime import datetime, timedelta
+import jwt
+from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -34,6 +35,22 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
     
+    def get_reset_password_token(self, expires_in=3600):
+    #Generates a JWT token valid for `expires_in` seconds
+        return jwt.encode(
+            {'reset_password': self.id, 'exp': datetime.utcnow() + timedelta(seconds=expires_in)},
+            current_app.config['SECRET_KEY'],
+            algorithm='HS256'
+        )
+
+@staticmethod
+def verify_reset_password_token(token):
+    """Verifies the JWT token and returns the user if it's valid."""
+    try:
+        id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+    except Exception:
+        return None
+    return User.query.get(id)
     
    
 class UserMessage(db.Model):
