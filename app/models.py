@@ -43,14 +43,14 @@ class User(UserMixin, db.Model):
             algorithm='HS256'
         )
 
-@staticmethod
-def verify_reset_password_token(token):
-    """Verifies the JWT token and returns the user if it's valid."""
-    try:
-        id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
-    except Exception:
-        return None
-    return User.query.get(id)
+    @staticmethod
+    def verify_reset_password_token(token):
+        """Verifies the JWT token and returns the user if it's valid."""
+        try:
+            id = jwt.decode(token, current_app.config['SECRET_KEY'], algorithms=['HS256'])['reset_password']
+        except Exception:
+            return None
+        return User.query.get(id)
     
    
 class UserMessage(db.Model):

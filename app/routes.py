@@ -6,13 +6,13 @@ from flask_login import current_user, login_user, logout_user
 from flask_babel import _
 
 from app import app, db, mail
-from app.forms import RegistrationForm, LoginForm, MessageForm, EvalForm, ResetPasswordRequestForm, SimpleForm, ResetPasswordRequestForm
+from app.forms import RegistrationForm, LoginForm, MessageForm, EvalForm, ResetPasswordRequestForm, SimpleForm, ResetPasswordForm
 from app.models import User, UserMessage
 from recommender.cocktailRecommender import CocktailRecommender  # Importar el recomendador
 
 # Función para enviar correos
-def send_email(subject, body):
-    msg = Message(subject, sender=app.config['MAIL_DEFAULT_SENDER'], recipients=[current_user.email])
+def send_email(subject, body, recipient):
+    msg = Message(subject, sender=app.config['MAIL_DEFAULT_SENDER'], recipients=[recipient])
     msg.body = body
     try:
         mail.send(msg)
@@ -136,10 +136,34 @@ def send_message():
 def request_password_reset():
     form = ResetPasswordRequestForm()
     if form.validate_on_submit():
-        # Lógica para enviar el correo de restablecimiento de contraseña
-        flash('Se ha enviado un correo con instrucciones para restablecer tu contraseña.', 'info')
+        user_email = form.email.data.strip()  # Eliminar espacios en blanco
+        print(f'Email submitted: "{user_email}"')  # Imprimir el correo electrónico ingresado
+        user = User.query.filter_by(email=user_email).first()
+        if user:
+            token = user.get_reset_password_token()
+            send_email(subject='Password Reset Request',
+                       body=render_template('email_reset_password.txt', user=user, token=token),
+                       recipient=user_email)
+            flash('An email with instructions to reset your password has been sent.', 'info')
+        else:
+            flash('If the email is registered, you will receive an email with instructions to reset your password.', 'info')
         return redirect(url_for('login'))
     return render_template('request_password_reset.html', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))  # Redirect if the token is invalid
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)  # Update the user's password
+        db.session.commit()  # Commit the changes to the database
+        flash('Your password has been updated.', 'success')
+        return redirect(url_for('login'))  # Redirect to the login page
+    return render_template('reset_password.html', form=form)
+
 
 @app.route('/logout')
 def logout():
