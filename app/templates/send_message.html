@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Send a Message</h2>
-<form action="" method="post" novalidate>
+<form action="{{ url_for('send_message') }}" method="post" novalidate>
     {{ form.hidden_tag() }}
     <div class="mb-3">
         {{ form.subject.label(class="form-label") }}

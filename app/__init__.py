@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
@@ -18,8 +17,6 @@ mail = Mail(app)
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
-bootstrap = Bootstrap(app)
 
 login = LoginManager(app)
 login.login_view = 'login'

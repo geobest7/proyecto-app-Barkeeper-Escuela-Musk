@@ -11,14 +11,22 @@ from app.models import User, UserMessage
 from recommender.cocktailRecommender import CocktailRecommender  # Importar el recomendador
 
 # Función para enviar correos
-def send_email(subject, body, recipient):
-    msg = Message(subject, sender=app.config['MAIL_DEFAULT_SENDER'], recipients=[recipient])
+def send_email(subject, body, recipient, reply_to=None):
+    msg = Message(
+        subject,
+        sender=app.config['MAIL_DEFAULT_SENDER'],
+        recipients=[recipient]
+    )
     msg.body = body
+
+    if reply_to:
+        msg.reply_to = reply_to  # Establecer el campo Reply-To si se proporciona
+
     try:
         mail.send(msg)
     except Exception as e:
         print(f"Failed to send email: {e}")
-
+        
 # Crear una instancia del recomendador (ajusta los paths si es necesario)
 recommender = CocktailRecommender(
     cocktail_file='data/ccc_cocktails.xml',
@@ -104,8 +112,13 @@ def specially4u():
 
 @app.route('/message', methods=['GET'])
 def message():
-    messages = current_user.message_recived.order_by(UserMessage.timestamp.desc()).all()
-    return render_template('message.html', messages=messages, title='Your Messages')
+    # Obtener los mensajes donde el usuario actual es el remitente o el destinatario
+    messages = UserMessage.query.filter(
+        (UserMessage.sender_id == current_user.id) | 
+        (UserMessage.recipient_id == current_user.id)
+    ).order_by(UserMessage.timestamp.desc()).all()
+    
+    return render_template('message.html', messages=messages, title='Tus Mensajes')
 
 
 @app.route('/send_message', methods=['GET', 'POST'])
@@ -124,7 +137,8 @@ def send_message():
         db.session.commit()
         
         # Enviar correo electrónico
-        send_email(subject=form.subject.data, body=form.body.data)
+        recipient_email = app.config['ADMIN_EMAIL'] 
+        send_email(subject=form.subject.data, body=form.body.data, recipient=recipient_email, reply_to=current_user.email)
         
         flash('Message sent successfully!', 'success')
         return redirect(url_for('message'))
