@@ -1,0 +1,21 @@
+<div class="cocktail mb-4">
+    <h2>{{ cocktail.name }}</h2>
+    <img src="https://source.unsplash.com/600x400/?{{ cocktail.name|replace(' ', '-') }}" alt="{{ cocktail.name }}"
+         class="img-fluid">
+    <p>{{ cocktail.description }}</p>
+    <ul>
+        <li><strong>{{ _('Ingredientes:') }}</strong></li>
+        {% for ingredient in cocktail.ingredients %}
+        <li>{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
+    <p><strong>{{ _('Preparation:') }}</strong></p>
+    <p>
+        {% for step in cocktail.preparation %}
+            {{ _(step) }}{% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <a class="btn btn-primary" href="{{ url_for('cocktail', cocktail_name=cocktail.name, page=page) }}">
+        {{ _('View Details') }}
+    </a>
+</div>

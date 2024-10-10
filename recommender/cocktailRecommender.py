@@ -2,6 +2,8 @@ from .cocktailRecommenderInterface import CocktailRecommenderInterface
 from .case_base import CaseBase, Cocktail
 import random
 import csv
+from flask_babel import _
+
 
 
 class CocktailRecommender(CocktailRecommenderInterface):
@@ -54,7 +56,7 @@ class CocktailRecommender(CocktailRecommenderInterface):
 
         # CBR cycle
         self._retrieve()  # Retrieve
-        print('····· Retrieved cocktails (top '+ str(self.k_top)+') ·····')
+        print(_('····· Retrieved cocktails (top ') + str(self.k_top) + _(') ·····'))
         [print(c.name) for c in self._most_similar]  # Print most similar cocktail names
         steps, covered = self._adaptation()  # Adapt
         random_selected_names = covered
@@ -63,20 +65,20 @@ class CocktailRecommender(CocktailRecommenderInterface):
             random_selected_names = random.choices(covered, k=2)
 
         if len(random_selected_names) == 2:
-            name_adapted_recipe = 'Cocktail with ' + covered[0] + ' and ' + covered[1]
+            name_adapted_recipe = _('Cocktail with ') + covered[0] + _(' and ') + covered[1]
         elif len(covered) == 1:
-            name_adapted_recipe = 'Cocktail with ' + covered[0]
+            name_adapted_recipe = _('Cocktail with ') + covered[0]
         else:
             name_adapted_recipe = None
 
-        if (len(steps) == 0 and (len(self._query_cocktail.ingredients_by_taxonomy['alcohol']) != 0 or len(self._query_cocktail.ingredients_by_taxonomy['juice'])) != 0):
-            steps = ["Mix all ingredients"]
+        if len(steps) == 0 and (len(self._query_cocktail.ingredients_by_taxonomy['alcohol']) != 0 or len(self._query_cocktail.ingredients_by_taxonomy['juice']) != 0):
+            steps = [_("Mix all ingredients")]
             if self._query_cocktail.ingredients_by_taxonomy['alcohol']:
-                name_adapted_recipe = 'Cocktail with ' + str(self._query_cocktail.ingredients_by_taxonomy['alcohol'][0])
+                name_adapted_recipe = _('Cocktail with ') + str(self._query_cocktail.ingredients_by_taxonomy['alcohol'][0])
             elif self._query_cocktail.ingredients_by_taxonomy['juice']:
-                name_adapted_recipe = 'Cocktail with ' + str(self._query_cocktail.ingredients_by_taxonomy['juice'][0])
+                name_adapted_recipe = _('Cocktail with ') + str(self._query_cocktail.ingredients_by_taxonomy['juice'][0])
             else:
-                name_adapted_recipe = 'Cocktail with ' + str(self._query_cocktail.ingredients_by_taxonomy['alcohol'][0]) + ' and ' + str(self._query_cocktail.ingredients_by_taxonomy['juice'][0])
+                name_adapted_recipe = _('Cocktail with ') + str(self._query_cocktail.ingredients_by_taxonomy['alcohol'][0]) + _(' and ') + str(self._query_cocktail.ingredients_by_taxonomy['juice'][0])
 
         elif len(steps) == 0:
             name_adapted_recipe = None
@@ -86,20 +88,20 @@ class CocktailRecommender(CocktailRecommenderInterface):
         self._query_cocktail.name = name_adapted_recipe
 
 
-        print('\n····· Final recommended recipe: ·····')
-        print('Steps:')
+        print(_('\n····· Final recommended recipe: ·····'))
+        print(_('Steps:'))
         i = 0
         for step in steps:
             splitted_steps = step.split('.')
             for single_step in splitted_steps:
                 if single_step != '':
-                    print(i + 1, ' - ', single_step)
+                    print(i + 1, _(' - '), single_step)
                     i += 1
 
         if self.adapted_cocktail_name:
-            print('Recommended cocktail name: ', self.adapted_cocktail_name)
+            print(_('Recommended cocktail name: '), self.adapted_cocktail_name)
         else:
-            print('The system is not able to find any recipe.')
+            print(_('The system is not able to find any recipe.'))
 
         self._query_cocktail.preparation = steps  # Save preparation
 
@@ -111,13 +113,13 @@ class CocktailRecommender(CocktailRecommenderInterface):
 
     def test(self):
         for name, cocktail in self.case_base.cocktails_test.items():
-            print('Cocktail test name:', name)
+            print(_('Cocktail test name:'), name)
             input_ingredients = cocktail.ingredients
-            print('Ingredients in ', name, ':', input_ingredients)
-            print("Reference preparation:")
-            [print(step + 1, ' - ', cocktail.preparation[step], '\n') for step in range(len(cocktail.preparation))]
+            print(_('Ingredients in '), name, ':', input_ingredients)
+            print(_("Reference preparation:"))
+            [print(step + 1, _(' - '), cocktail.preparation[step], '\n') for step in range(len(cocktail.preparation))]
             print()
-            print('Top similar cocktails for ', name, ':')
+            print(_('Top similar cocktails for '), name, ':')
             self.get_recommendation(input_ingredients)
             print()
 
@@ -137,9 +139,9 @@ class CocktailRecommender(CocktailRecommenderInterface):
         covered = []
         subsitute = []
         steps = []
-        print('\n······ Initalize adaptation ······ \n')
+        print(_('\n······ Initialize adaptation ······ \n'))
         idx = 0
-        print('Try to add steps from the top similar cocktails recipes that include query ingredients:')
+        print(_('Try to add steps from the top similar cocktails recipes that include query ingredients:'))
         for cocktail in self._most_similar.keys():
             covered_new = set(self._query_cocktail.ingredients).intersection(set(cocktail.ingredients))
             if len(self._query_cocktail.ingredients) == len(cocktail.ingredients) and len(self._query_cocktail.ingredients) == len(covered_new):
@@ -165,85 +167,85 @@ class CocktailRecommender(CocktailRecommenderInterface):
                                 subsitute.append([idx, c_ingredient])
                     idx += 1
 
-        covered = list(set(covered))
-        not_covered = list(set(self._query_cocktail.ingredients) - set(covered))
-        print()
-        print('==> Steps:')
-        [print(step) for a, step in steps]
-        print()
-        print('Ingredients covered', covered)
-        print('Ingredients not_covered', not_covered)
-        if subsitute:
-            print('Substitute', subsitute)
-
-
-        print('\nTry to replace leftover ingredients with uncovered ingredients if they share a taxonomy:')
-        # try to replace leftover ingredients with uncovered ingredients if they share a taxonomy
-        dic_ingr_tax_nc = {}
-        dic_ingr_tax_sub = {}
-        for idx, ingredient in subsitute:
-            dic_ingr_tax_sub[ingredient] = self.case_base.get_taxonomy(ingredient)
-            comun_taxonomy_max = 0
-            new_covered = ""
-            new_substituted = ""
-
-            for option in not_covered:
-                dic_ingr_tax_nc[option] = self.case_base.get_taxonomy(option)
-                comun_taxonomy = set(dic_ingr_tax_sub[ingredient]).intersection(set(dic_ingr_tax_nc[option]))
-                # search for the option with most common taxonomys
-                if len(comun_taxonomy) > comun_taxonomy_max:
-                    comun_taxonomy_max = len(comun_taxonomy)
-                    new_covered = option
-
-            if new_covered != "":
-                steps[idx][1] = steps[idx][1].replace(str(ingredient), str(new_covered))
-                covered.append(new_covered)
-                subsitute.remove([idx, ingredient])
-
+            covered = list(set(covered))
             not_covered = list(set(self._query_cocktail.ingredients) - set(covered))
-        print()
-        print('==> Steps:')
-        [print(step) for a, step in steps]
-        print()
-        print('Ingredients covered', covered)
-        print('Ingredients not_covered', not_covered)
-        if subsitute:
-            print('Substitute', subsitute)
+            print()
+            print(_('==> Steps:'))
+            [print(step) for a, step in steps]
+            print()
+            print(_('Ingredients covered'), covered)
+            print(_('Ingredients not covered'), not_covered)
+            if subsitute:
+                print(_('Substitute'), subsitute)
 
-        # try to replace leftover ingredients with ingredients from the recipe, even if they are repeated, if they share taxonomy
-        print()
-        print('\nTry to replace leftover ingredients with ingredients from the recipe, even if they are repeated, if they share taxonomy:')
-        for idx, ingredient in subsitute:
 
-            dic_ingr_tax_sub[ingredient] = self.case_base.get_taxonomy(ingredient)
-            comun_taxonomy_max = 0
-            new_covered = ""
-            new_substituted = ""
+            print(_('\nTry to replace leftover ingredients with uncovered ingredients if they share a taxonomy:'))
+            # try to replace leftover ingredients with uncovered ingredients if they share a taxonomy
+            dic_ingr_tax_nc = {}
+            dic_ingr_tax_sub = {}
+            for idx, ingredient in subsitute:
+                dic_ingr_tax_sub[ingredient] = self.case_base.get_taxonomy(ingredient)
+                comun_taxonomy_max = 0
+                new_covered = ""
+                new_substituted = ""
 
-            for option in self._query_cocktail.ingredients:
-                dic_ingr_tax_nc[option] = self.case_base.get_taxonomy(option)
-                comun_taxonomy = set(dic_ingr_tax_sub[ingredient]).intersection(set(dic_ingr_tax_nc[option]))
-                if len(comun_taxonomy) > comun_taxonomy_max:
-                    comun_taxonomy_max = len(comun_taxonomy)
-                    new_covered = option
-                    new_substituted = [idx, ingredient]
+                for option in not_covered:
+                    dic_ingr_tax_nc[option] = self.case_base.get_taxonomy(option)
+                    comun_taxonomy = set(dic_ingr_tax_sub[ingredient]).intersection(set(dic_ingr_tax_nc[option]))
+                    # search for the option with most common taxonomys
+                    if len(comun_taxonomy) > comun_taxonomy_max:
+                        comun_taxonomy_max = len(comun_taxonomy)
+                        new_covered = option
 
-            if new_covered != "":
-                steps[idx][1] = steps[idx][1].replace(str(new_substituted[1]), str(new_covered))
-                subsitute.remove(new_substituted)
+                if new_covered != "":
+                    steps[idx][1] = steps[idx][1].replace(str(ingredient), str(new_covered))
+                    covered.append(new_covered)
+                    subsitute.remove([idx, ingredient])
 
-        # ordenador los steps en un orden logico
-        print()
-        print('==> Steps:')
-        [print(step) for a, step in steps]
-        print()
-        print('Ingredients covered', covered)
-        print('Ingredients not_covered', not_covered)
-        if subsitute:
-            print('Substitute', subsitute)
+                not_covered = list(set(self._query_cocktail.ingredients) - set(covered))
+            print()
+            print(_('==> Steps:'))
+            [print(step) for a, step in steps]
+            print()
+            print(_('Ingredients covered'), covered)
+            print(_('Ingredients not covered'), not_covered)
+            if subsitute:
+                print(_('Substitute'), subsitute)
+
+            # try to replace leftover ingredients with ingredients from the recipe, even if they are repeated, if they share taxonomy
+            print()
+            print(_('\nTry to replace leftover ingredients with ingredients from the recipe, even if they are repeated, if they share taxonomy:'))
+            for idx, ingredient in subsitute:
+
+                dic_ingr_tax_sub[ingredient] = self.case_base.get_taxonomy(ingredient)
+                comun_taxonomy_max = 0
+                new_covered = ""
+                new_substituted = ""
+
+                for option in self._query_cocktail.ingredients:
+                    dic_ingr_tax_nc[option] = self.case_base.get_taxonomy(option)
+                    comun_taxonomy = set(dic_ingr_tax_sub[ingredient]).intersection(set(dic_ingr_tax_nc[option]))
+                    if len(comun_taxonomy) > comun_taxonomy_max:
+                        comun_taxonomy_max = len(comun_taxonomy)
+                        new_covered = option
+                        new_substituted = [idx, ingredient]
+
+                if new_covered != "":
+                    steps[idx][1] = steps[idx][1].replace(str(new_substituted[1]), str(new_covered))
+                    subsitute.remove(new_substituted)
+
+            # ordenador los steps en un orden logico
+            print()
+            print(_('==> Steps:'))
+            [print(step) for a, step in steps]
+            print()
+            print(_('Ingredients covered'), covered)
+            print(_('Ingredients not covered'), not_covered)
+            if subsitute:
+                print(_('Substitute'), subsitute)
 
         # add a step of another cocktail that has an uncovered ingredient
-        print('\nAdd a step of another cocktail that has an uncovered ingredient:')
+        print(_('\nAdd a step of another cocktail that has an uncovered ingredient:'))
         if not_covered:
             dic = self.case_base.get_steps_by_ingredients()
             ingr_step_dic = dic[0]
@@ -251,10 +253,8 @@ class CocktailRecommender(CocktailRecommenderInterface):
             # try adding the step without more ingredients and with an order that is not currently in the steps
             # If it is not possible, add the shorter one.
             for ingredient in not_covered:
-                #print(ingr_step_dic_unic.get(ingredient))
-                if ingr_step_dic_unic.get(ingredient) != [] and ingr_step_dic_unic.get(ingredient) != None:
+                if ingr_step_dic_unic.get(ingredient) != [] and ingr_step_dic_unic.get(ingredient) is not None:
                     shortest = ingr_step_dic_unic.get(ingredient)[0]
-                    #print('solito', ingr_step_dic_unic.get(ingredient))
                     for k, step in ingr_step_dic_unic.get(ingredient):
                         if steps == []:
                             covered.append(ingredient)
@@ -275,15 +275,15 @@ class CocktailRecommender(CocktailRecommenderInterface):
 
             not_covered = list(set(self._query_cocktail.ingredients) - set(covered))
             print()
-            print('==> Steps:')
+            print(_('==> Steps:'))
             [print(step) for a, step in steps]
             print()
-            print('Ingredients covered', covered)
-            print('Ingredients not_covered', not_covered)
+            print(_('Ingredients covered'), covered)
+            print(_('Ingredients not covered'), not_covered)
             if subsitute:
-                print('Substitute', subsitute)
+                print(_('Substitute'), subsitute)
 
-            print('\nAdd a step of another cocktail that has an uncovered ingredient 2:')
+            print(_('\nAdd a step of another cocktail that has an uncovered ingredient 2:'))
             # add one of the steps of another cocktail that has fewer leftover ingredients,
             # taking into account common taxonomies
             for ingredient in not_covered:
@@ -292,13 +292,11 @@ class CocktailRecommender(CocktailRecommenderInterface):
                 to_add_taxonomy = []
                 numer_com_max, numer_com_tax_max = 0, -1
                 # select the step among the 3 with the least ingredients left over, the one with the most common taxonomies
-                #print('con mas', ingr_step_dic.get(ingredient))
-                if ingr_step_dic.get(ingredient) != [] and ingr_step_dic.get(ingredient) != None:
+                if ingr_step_dic.get(ingredient) != [] and ingr_step_dic.get(ingredient) is not None:
                     steps_sort = sorted(ingr_step_dic.get(ingredient), key=lambda x: len(x[2]), reverse=True)[0:3]
-                    #print('steps_sort', steps_sort)
                     for k, step, list_ingr in steps_sort:
                         list_taxonomy = []
-                        numer_com = len((set(self._query_cocktail.ingredients)).intersection(set(list_ingr) - set(ingredient)))
+                        numer_com = len(set(self._query_cocktail.ingredients).intersection(set(list_ingr) - set(ingredient)))
                         for ingr in list_ingr:
                             list_taxonomy.extend(self.case_base.get_taxonomy(ingr))
                         numer_com_tax = len(set(list_taxonomy).intersection(set(self._query_cocktail.taxonomy_types)))
@@ -321,8 +319,7 @@ class CocktailRecommender(CocktailRecommenderInterface):
 
                         for option in self._query_cocktail.ingredients:
                             dic_ingr_tax_nc[option] = self.case_base.get_taxonomy(option)
-                            comun_taxonomy = set(dic_ingr_tax_sub[s_ingredient]).intersection(
-                                set(dic_ingr_tax_nc[option]))
+                            comun_taxonomy = set(dic_ingr_tax_sub[s_ingredient]).intersection(set(dic_ingr_tax_nc[option]))
 
                             if len(comun_taxonomy) > comun_taxonomy_max:
                                 comun_taxonomy_max = len(comun_taxonomy)
@@ -338,13 +335,13 @@ class CocktailRecommender(CocktailRecommenderInterface):
 
         not_covered = list(set(self._query_cocktail.ingredients) - set(covered))
         print()
-        print('==> Steps:')
+        print(_('==> Steps:'))
         [print(step) for a, step in steps]
         print()
-        print('Ingredients covered', covered)
-        print('Ingredients not_covered', not_covered)
+        print(_('Ingredients covered'), covered)
+        print(_('Ingredients not covered'), not_covered)
         if subsitute:
-            print('Substitute', subsitute)
+            print(_('Substitute'), subsitute)
 
         steps = [step for a, step in steps]
         return steps, covered

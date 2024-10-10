@@ -3,16 +3,15 @@ import jwt
 from flask import current_app
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from app import db, login
 
 
-class CockatilDB(db.Model):
+
+class CocktailDB(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), index=True, unique=True)
     ingredients = db.Column(db.Text(), nullable=False)
     preparation = db.Column(db.Text(), nullable=False)
-
 
     
 class User(UserMixin, db.Model):

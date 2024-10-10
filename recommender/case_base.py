@@ -7,17 +7,18 @@ class Cocktail(object):
     def __init__(self, name=None, ingredients=None, ingredients_quantity_unit=None, ingredients_by_taxonomy=None, preparation=None):
         self.name = name
         self.ingredients = [ingredient.lower() for ingredient in ingredients]
-        self.ingredient_quantity_unit = [("", "") for _ in ingredients] if ingredients_quantity_unit is None else [(c, u) if c != '0' else ("", "") for (c, u) in ingredients_quantity_unit]
-        self.ingredients_by_taxonomy = ingredients_by_taxonomy
+        self.ingredients_quantity_unit = [("", "") for _ in ingredients] if ingredients_quantity_unit is None else [(c, u) if c != '0' else ("", "") for (c, u) in ingredients_quantity_unit]
+        self.ingredients_by_taxonomy = ingredients_by_taxonomy if ingredients_by_taxonomy is not None else {}
         self.preparation = preparation
         self.taxonomy_types = self._get_taxonomy_types()
         self.penalty = 0
 
     def _get_taxonomy_types(self):
         types = []
-        for key, ingredients in self.ingredients_by_taxonomy.items():
-            if len(ingredients) != 0:
-                types.append(key)
+        if self.ingredients_by_taxonomy:  # Verifica si no es None y no está vacío
+            for key, ingredients in self.ingredients_by_taxonomy.items():
+                if len(ingredients) != 0:
+                    types.append(key)
         return types
 
 

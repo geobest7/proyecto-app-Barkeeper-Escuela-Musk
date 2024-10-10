@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Send a Message</h2>
+<h2>{{ _('Send a Message') }}</h2>
 <form action="{{ url_for('send_message') }}" method="post" novalidate>
     {{ form.hidden_tag() }}
     <div class="mb-3">
@@ -22,5 +22,5 @@
         {{ form.submit(class="btn btn-primary") }} 
     </div>
 </form>
-<a href="{{ url_for('message') }}" class="btn btn-secondary mt-3">Back to Messages</a>
+<a href="{{ url_for('message') }}" class="btn btn-secondary mt-3">{{ _('Back to Messages') }}</a>
 {% endblock %}

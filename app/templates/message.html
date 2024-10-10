@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>{{ title }}</h1>
-    <a href="{{ url_for('send_message') }}" class="btn btn-primary">Send a Message</a>
+    <a href="{{ url_for('send_message') }}" class="btn btn-primary">{{ _('Send a Message') }}</a>
 
     {% if messages %}
         <div class="list-group mt-3">
@@ -10,11 +10,11 @@
                 <div class="list-group-item">
                     <h5 class="mb-1">{{ message.subject }}</h5>
                     <p class="mb-1">{{ message.body }}</p>
-                    <small class="text-muted">Sent on: {{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+                    <small class="text-muted">{{ _('Sent on:') }} {{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
                 </div>
             {% endfor %}
         </div>
     {% else %}
-        <p class="mt-3">No messages to display.</p>
+        <p class="mt-3">{{ _('No messages to display.') }}</p>
     {% endif %}
 {% endblock %}

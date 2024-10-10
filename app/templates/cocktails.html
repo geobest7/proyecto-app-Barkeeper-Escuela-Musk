@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ _('Cocktails') }}{% endblock %}
+
+{% block content %}
+    <h1>{{ _('Cocktails') }}</h1>
+
+    <div class="cocktail-list">
+        {% for cocktail in cocktails %}
+            {% include '_cocktail.html' %}
+        {% else %}
+            <p>{{ _('No cocktails found.') }}</p>
+        {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {{ pagination.links }}
+    </div>
+{% endblock %}

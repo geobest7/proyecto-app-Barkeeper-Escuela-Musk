@@ -40,4 +40,10 @@ class Config(object):
     ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', MAIL_USERNAME)  # Usa el mismo valor que MAIL_USERNAME si no está definido
     
     # Idiomas soportados
-    LANGUAGES = ['en', 'es']
+    LANGUAGES = ['en', 'es', 'it', 'ca']  # Inglés, Español, Italiano, Catalán
+    
+    # Número de cócteles a mostrar por página
+    RECIPES_PER_PAGE = 10
+    
+    # Número de mensajes a mostrar por página
+    MESSAGE_PER_PAGE = 2  

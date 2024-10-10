@@ -4,19 +4,19 @@
 <form method="POST">
     {{ form.hidden_tag() }}
     
-    <h2>Select Fruits</h2>
+    <h2>{{ _('Select Fruits') }}</h2>
     {{ form.fruits_cb.label }}
     {{ form.fruits_cb() }}
     
-    <h2>Select Alcoholic Drinks</h2>
+    <h2>{{ _('Select Alcoholic Drinks') }}</h2>
     {{ form.alco_cb.label }}
     {{ form.alco_cb() }}
     
-    <h2>Select Non-Alcoholic Drinks</h2>
+    <h2>{{ _('Select Non-Alcoholic Drinks') }}</h2>
     {{ form.onalco_cb.label }}
     {{ form.onalco_cb() }}
     
-    <h2>Select Others</h2>
+    <h2>{{ _('Select Others') }}</h2>
     {{ form.fothers_cb.label }}
     {{ form.fothers_cb() }}
     
@@ -29,7 +29,7 @@
 </form>
 
 {% if cocktails %}
-    <h2>Recommended Cocktails</h2>
+    <h2>{{ _('Recommended Cocktails') }}</h2>
     <ul>
     {% for cocktail in cocktails %}
         <li>{{ cocktail }}</li>

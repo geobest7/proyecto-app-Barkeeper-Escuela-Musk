@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <input id="submit" type="button" class="btn btn-primary" value="Back" onclick="history.back(-1)" />
+    <div class="text-center"></div>
+    <h1>{{ _('Error 404') }}</h1>
+    <div class="alert alert-danger" role="alert">
+        {% if name != '' %}
+            {{ name }} not found
+        {% else %}
+            {{ _('The page you are looking for does not exist')}}
+        {% endif %}
+    </div>
+{% endblock %}

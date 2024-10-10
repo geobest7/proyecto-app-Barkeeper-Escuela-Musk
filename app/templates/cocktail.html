@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ cocktail.name }} - {{ _('Cocktail Details') }}{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <h1>{{ cocktail.name }}</h1>
+    <h3>{{ _('Ingredients:') }}</h3>
+    <ul>
+        {% for ingredient in cocktail.ingredients %}
+        <li>{{ ingredient }}</li>
+        {% endfor %}
+    </ul>
+    <h3>{{ _('Preparation:') }}</h3>
+    <p>{{ cocktail.preparation }}</p>
+
+    <a class="btn btn-secondary" href="{{ url_for('cocktails', page=page) }}">
+        {{ _('Back to recommendations') }}
+    </a>
+</div>
+{% endblock %}

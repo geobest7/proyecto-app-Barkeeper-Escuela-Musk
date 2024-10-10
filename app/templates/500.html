@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <input id="submit" type="button" class="btn btn-primary" value="{{ _('Back') }}" onclick="history.back(-1)" />
+    <div class="text-center"></div>
+    <h1>{{ _('Error 500') }}</h1>
+    <div class="alert alert-danger" role="alert">
+        {{ _('Sorry, something went wrong.') }} <br>
+        {{ _('The server encountered an internal error and was unable to complete your request.') }} <br>
+        {{ _('Please contact the server administrator at "admin@barkeeper.com" to inform them of the time this error occurred, and the actions you performed just before this error.') }}
+    </div>
+{% endblock %}

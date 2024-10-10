@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ _('No Recommendations') }}{% endblock %}
+
+{% block content %}
+<div class="mt-4 text-center">
+    <h1>{{ _('No Recommendations Available') }}</h1>
+    <p>{{ _('It seems that there are no cocktails available for the selected ingredients. Please try different selections.') }}</p>
+    <a href="{{ url_for('specially4u') }}" class="btn btn-primary">{{ _('Try Again') }}</a>
+</div>
+{% endblock %}
