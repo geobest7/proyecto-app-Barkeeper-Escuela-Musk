@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ get_locale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -17,7 +17,6 @@
     {% block nav_bar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <!-- Logo or application name -->
             <a class="navbar-brand" href="{{ url_for('index') }}">Barkeeper</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +25,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     {% if current_user.is_authenticated %}
-                    <!-- Show a welcome message and logout link for authenticated users -->
                     <li class="nav-item">
                         <div class="alert alert-info mb-0" role="alert">
                             {{ _('Welcome') }} {{ current_user.username }}!
@@ -44,24 +42,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('logout') }}">{{ _('Log Out') }}</a>
                     </li>
-                    <!-- Language selection -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             {{ _('Language') }}
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('set_language', lang='en') }}">English</a>
+                            {% for lang in config['LANGUAGES'] %}
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('set_language', lang_code=lang) }}" {% if
+                                    session['lang']==lang %} class="active" {% endif %}>
+                                    {{ lang.capitalize() }}
+                                </a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ url_for('set_language', lang='es') }}">Español</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url_for('set_language', lang='it') }}">Italiano</a>
-                            </li>
-                            <li><a class="dropdown-item" href="{{ url_for('set_language', lang='ca') }}">Català</a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                     {% else %}
-                    <!-- Show only login and register links for non-authenticated users -->
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('index') }}">{{ _('Home') }}</a>
                     </li>
@@ -80,7 +77,6 @@
 
     <div class="container">
         {% block content %}
-        <!-- Message for non-authenticated users -->
         {% if not current_user.is_authenticated %}
         <div class="alert alert-warning text-center mt-4">
             {{ _('Welcome to Barkeeper, please log in or register to continue.') }} <br>
@@ -88,11 +84,26 @@
                 _('register') }}</a>
         </div>
         {% endif %}
-        <!-- Content specific to each page will go here -->
         {% endblock %}
     </div>
 
-    <!-- Including Bootstrap JS and dependencies -->
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-auto">
+        <div class="container p-4">
+            <ul class="list-unstyled mb-0">
+                <li><strong>{{ _('Contacts:') }}</strong></li>
+                <li>{{ _('Phone:') }} +34 987654321</li>
+                <li>{{ _('Email:') }} <a href="mailto:info@barkeeper.com">info@barkeeper.com</a></li>
+                <li><strong>{{ _('Bar Address:') }}</strong></li>
+                <li>Via delle Scimmie 10, Molazzana, Lucca, Italia</li>
+                <li><strong>{{ _('Terms and Conditions:') }}</strong></li>
+                <li>
+                    <a href="{{ url_for('terms_conditions') }}" target="_blank">{{ _('View Terms and Conditions') }}</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 </body>
 

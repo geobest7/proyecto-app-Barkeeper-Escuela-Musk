@@ -1,0 +1,553 @@
+# Catalan translations for PROJECT.
+# Copyright (C) 2024 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2024-11-05 21:21+0100\n"
+"PO-Revision-Date: 2024-10-23 23:04+0200\n"
+"Last-Translator: \n"
+"Language: ca\n"
+"Language-Team: ca <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.16.0\n"
+
+#: app/email.py:23
+msgid "Reset your password - Barkeeper"
+msgstr "Restableix la teva contrasenya - Barkeeper"
+
+#: app/forms.py:29
+msgid "Fruits"
+msgstr "Fruites"
+
+#: app/forms.py:30
+msgid "Alcoholic Beverages"
+msgstr "Begudes alcohòliques"
+
+#: app/forms.py:31
+msgid "Non-Alcoholic Beverages"
+msgstr "Begudes sense alcohol"
+
+#: app/forms.py:32
+msgid "Others"
+msgstr "Altres"
+
+#: app/forms.py:35
+#, fuzzy
+msgid "Search"
+msgstr "Cerca"
+
+#: app/forms.py:39 app/forms.py:46
+msgid "Username"
+msgstr "Nom d'usuari"
+
+#: app/forms.py:39 app/forms.py:46
+msgid "username"
+msgstr "nom d’usuari"
+
+#: app/forms.py:40 app/forms.py:48
+msgid "Password"
+msgstr "Contrasenya"
+
+#: app/forms.py:40 app/forms.py:49
+msgid "password"
+msgstr "contrasenya"
+
+#: app/forms.py:41
+msgid "Remember Me"
+msgstr "Recorda'm"
+
+#: app/forms.py:42 app/templates/login.html:4
+msgid "Login"
+msgstr "Inicieu sessió"
+
+#: app/forms.py:47 app/forms.py:77
+msgid "Email"
+msgstr "Correu electrònic"
+
+#: app/forms.py:47
+msgid "email"
+msgstr "correu electrònic"
+
+#: app/forms.py:50 app/forms.py:83
+msgid "Repeat Password"
+msgstr "Repetiu la contrasenya"
+
+#: app/forms.py:51
+msgid "password confirmation"
+msgstr "confirmació de la contrasenya"
+
+#: app/forms.py:52 app/templates/base.html:66
+msgid "Register"
+msgstr "Registra't"
+
+#: app/forms.py:57
+msgid "Choose a different username"
+msgstr "Trieu un nom d'usuari diferent"
+
+#: app/forms.py:62
+msgid "Please choose a different email"
+msgstr "Si us plau, trieu un correu electrònic diferent"
+
+#: app/forms.py:66
+msgid "Subject"
+msgstr "Assumpte"
+
+#: app/forms.py:67
+msgid "Body"
+msgstr "Cos"
+
+#: app/forms.py:68
+msgid "Send"
+msgstr "Enviar"
+
+#: app/forms.py:72
+msgid "Evaluation"
+msgstr "Avaluació"
+
+#: app/forms.py:73
+msgid "Submit"
+msgstr "Envia"
+
+#: app/forms.py:78 app/templates/request_password_reset.html:3
+#: app/templates/request_password_reset.html:6
+msgid "Request Password Reset"
+msgstr "Request Password Reset"
+
+#: app/forms.py:82
+msgid "New Password"
+msgstr "Nova contrasenya"
+
+#: app/forms.py:84
+msgid "Confirm New Password"
+msgstr "Confirmeu la nova contrasenya"
+
+#: app/forms.py:85 app/templates/email_reset_password.html:5
+#: app/templates/email_reset_password.html:10
+#: app/templates/reset_password.html:3 app/templates/reset_password.html:6
+msgid "Reset Password"
+msgstr "Restableix la contrasenya"
+
+#: app/routes.py:54 app/routes.py:60 app/routes.py:69
+#: app/templates/base.html:63 app/templates/index.html:5
+#, fuzzy
+msgid "Home"
+msgstr "àrea personal"
+
+#: app/routes.py:99
+msgid "Welcome, {}!"
+msgstr "Benvingut, {}!"
+
+#: app/routes.py:102
+msgid "Incorrect password"
+msgstr "Contrasenya incorrecta"
+
+#: app/routes.py:129
+msgid "Please select at least two ingredients."
+msgstr "Seleccioneu almenys dos ingredients."
+
+#: app/routes.py:146
+msgid "Your Messages"
+msgstr "Els teus missatges"
+
+#: app/routes.py:151 app/templates/no_recommendation.html:3
+#, fuzzy
+msgid "No Recommendations"
+msgstr "Sense recomanacions"
+
+#: app/routes.py:163
+#, fuzzy
+msgid "Cocktail not found."
+msgstr "No s'ha trobat el còctel."
+
+#: app/routes.py:220
+msgid "You have received a new message: {}"
+msgstr "Heu rebut un missatge nou: {}"
+
+#: app/routes.py:225
+msgid "Message sent successfully!"
+msgstr "Missatge enviat correctament!"
+
+#: app/routes.py:236
+#, python-format
+msgid "Email submitted: \"%(email)s\""
+msgstr "Correu electrònic enviat: \"%(email)s\""
+
+#: app/routes.py:241
+msgid "Password Reset Request"
+msgstr "Sol·licitud de restabliment de la contrasenya"
+
+#: app/routes.py:245
+msgid "An email with instructions to reset your password has been sent."
+msgstr ""
+"S'ha enviat un correu electrònic amb instruccions per restablir la "
+"contrasenya."
+
+#: app/routes.py:247
+msgid ""
+"If the email is registered, you will receive an email with instructions "
+"to reset your password."
+msgstr ""
+"Si el correu electrònic està registrat, rebràs un correu electrònic amb "
+"instruccions per restablir la teva contrasenya."
+
+#: app/routes.py:261
+#, fuzzy
+msgid "Your password has been updated."
+msgstr "La teva contrasenya s'ha actualitzat."
+
+#: app/templates/404.html:6
+msgid "Error 404"
+msgstr "Error 404"
+
+#: app/templates/404.html:11
+msgid "The page you are looking for does not exist"
+msgstr "La pàgina que busqueu no existeix"
+
+#: app/templates/500.html:4
+msgid "Back"
+msgstr "Enrere"
+
+#: app/templates/500.html:6
+msgid "Error 500"
+msgstr "Error 500"
+
+#: app/templates/500.html:8
+msgid "Sorry, something went wrong."
+msgstr "Ho sentim, hi ha hagut un error."
+
+#: app/templates/500.html:9
+msgid ""
+"The server encountered an internal error and was unable to complete your "
+"request."
+msgstr ""
+"El servidor ha trobat un error intern i no ha pogut completar la vostra "
+"sol·licitud."
+
+#: app/templates/500.html:10
+msgid ""
+"Please contact the server administrator at \"admin@barkeeper.com\" to "
+"inform them of the time this error occurred, and the actions you "
+"performed just before this error."
+msgstr ""
+"Si us plau, poseu-vos en contacte amb l'administrador del servidor a "
+"\"admin@barkeeper.com\" per informar-los de l'hora en què s'ha produït "
+"aquest error i de les accions que heu realitzat just abans d'aquest "
+"error."
+
+#: app/templates/_cocktail.html:7 app/templates/cocktail.html:8
+msgid "Ingredientes:"
+msgstr "Ingredients:"
+
+#: app/templates/_cocktail.html:12 app/templates/cocktail.html:14
+msgid "Preparation:"
+msgstr "Preparació:"
+
+#: app/templates/_cocktail.html:19
+msgid "View Details"
+msgstr "Veure detalls"
+
+#: app/templates/base.html:7
+msgid "Barkeeper"
+msgstr "Barkeeper"
+
+#: app/templates/base.html:30
+msgid "Welcome"
+msgstr "Benvingut"
+
+#: app/templates/base.html:34 app/templates/cocktails.html:3
+#: app/templates/cocktails.html:6
+msgid "Cocktails"
+msgstr "Còctels"
+
+#: app/templates/base.html:37
+msgid "Specially4U"
+msgstr "Specially4U"
+
+#: app/templates/base.html:40
+msgid "Messages"
+msgstr "Missatges"
+
+#: app/templates/base.html:43
+msgid "Log Out"
+msgstr "Tanca la sessió"
+
+#: app/templates/base.html:48
+msgid "Language"
+msgstr "Llengua"
+
+#: app/templates/base.html:69
+msgid "Log In"
+msgstr "Inicieu sessió"
+
+#: app/templates/base.html:82
+msgid "Welcome to Barkeeper, please log in or register to continue."
+msgstr "Benvingut a Barkeeper, inicieu sessió o registreu-vos per continuar."
+
+#: app/templates/base.html:83 app/templates/index.html:20
+msgid "log in"
+msgstr "inicieu sessió"
+
+#: app/templates/base.html:84 app/templates/index.html:21
+msgid "register"
+msgstr "registrar-se"
+
+#: app/templates/base.html:94
+msgid "Contacts:"
+msgstr "Contactes:"
+
+#: app/templates/base.html:95
+msgid "Phone:"
+msgstr "Telèfon:"
+
+#: app/templates/base.html:96
+msgid "Email:"
+msgstr "Correu electrònic:"
+
+#: app/templates/base.html:97
+msgid "Bar Address:"
+msgstr "Adreça del bar:"
+
+#: app/templates/base.html:99
+msgid "Terms and Conditions:"
+msgstr "Termes i condicions:"
+
+#: app/templates/base.html:101
+msgid "View Terms and Conditions"
+msgstr "Consulta els Termes i Condicions"
+
+#: app/templates/cocktail.html:3
+msgid "Cocktail Details"
+msgstr "Detalls del còctel"
+
+#: app/templates/cocktail.html:18
+msgid "Back to recommendations"
+msgstr "Torna a les recomanacions"
+
+#: app/templates/cocktails.html:12
+msgid "No cocktails found."
+msgstr "No s'han trobat còctels."
+
+#: app/templates/email_reset_password.html:8
+#, fuzzy
+msgid "Hello"
+msgstr "Hola"
+
+#: app/templates/email_reset_password.html:9
+msgid "To reset your password, please click on the following link:"
+msgstr "Per restablir la vostra contrasenya, feu clic al següent enllaç:"
+
+#: app/templates/email_reset_password.html:11
+msgid "If you did not request this change, please ignore this email."
+msgstr "Si no heu sol·licitat aquest canvi, ignoreu aquest correu electrònic."
+
+#: app/templates/email_reset_password.html:12
+msgid "Thank you for using Barkeeper!"
+msgstr "Gràcies per utilitzar Barkeeper!"
+
+#: app/templates/email_reset_password.html:13
+msgid "Best regards,"
+msgstr "Salutacions cordials,"
+
+#: app/templates/email_reset_password.html:13
+msgid "The Barkeeper Team"
+msgstr "L'equip de Barkeeper"
+
+#: app/templates/index.html:10
+msgid "Welcome to your personalized homepage,"
+msgstr "Benvingut a la vostra pàgina d'inici personalitzada,"
+
+#: app/templates/index.html:11
+#, fuzzy
+msgid ""
+"At Barkeeper, we’re more than just a bar – we’re a team of expert "
+"bartenders passionate about sharing our\n"
+"        love for cocktails. Our newly launched website offers a curated "
+"selection of our best creations, along with a\n"
+"        unique feature where you can choose at least two ingredients, and"
+" we’ll suggest the perfect cocktail recipe for\n"
+"        you. Whether you're an experienced mixologist or a cocktail "
+"enthusiast, Barkeeper is here to inspire and guide\n"
+"        you in crafting delicious drinks at home. If you have any "
+"questions about cocktails or need recommendations,\n"
+"        don’t hesitate to send us a message. We’re always happy to help!"
+msgstr ""
+"A Barkeeper, som més que un bar: som un equip de cambrers experts "
+"apassionats per compartir el nostre amor pels còctels. El nostre lloc web"
+" recentment llançat ofereix una selecció curada de les nostres millors "
+"creacions, juntament amb una característica única on podeu triar almenys "
+"dos ingredients i us suggerirem la recepta de còctels perfecta per a "
+"vosaltres. Tant si sou un mixòleg experimentat com si sou un entusiasta "
+"dels còctels, Barkeeper està aquí per inspirar-vos i guiar-vos en "
+"l'elaboració de begudes delicioses a casa. Si tens dubtes sobre còctels o"
+" necessites recomanacions, no dubtis a enviar-nos un missatge. Sempre "
+"estem encantats d'ajudar!"
+
+#: app/templates/index.html:19
+msgid "Welcome to Barkeeper"
+msgstr "Benvingut a Barkeeper"
+
+#: app/templates/index.html:20
+msgid "Please"
+msgstr "Si us plau"
+
+#: app/templates/index.html:20
+msgid "or"
+msgstr "o"
+
+#: app/templates/index.html:21
+msgid "to get started."
+msgstr "per començar."
+
+#: app/templates/index.html:25
+msgid "Choose Language"
+msgstr "Trieu Idioma"
+
+#: app/templates/login.html:26
+msgid "Forgot your password? Click here to reset it."
+msgstr "Has oblidat la teva contrasenya? Feu clic aquí per restablir-lo."
+
+#: app/templates/message.html:5 app/templates/send_message.html:4
+msgid "Send a Message"
+msgstr "Envia un missatge"
+
+#: app/templates/message.html:13
+msgid "Sent on:"
+msgstr "Enviat a:"
+
+#: app/templates/message.html:18
+msgid "No messages to display."
+msgstr "No hi ha missatges per mostrar."
+
+#: app/templates/no_recommendation.html:7
+msgid "No Recommendations Available"
+msgstr "No hi ha recomanacions disponibles"
+
+#: app/templates/no_recommendation.html:8
+msgid ""
+"It seems that there are no cocktails available for the selected "
+"ingredients. Please try different selections."
+msgstr ""
+"Sembla que no hi ha còctels disponibles per als ingredients seleccionats."
+" Si us plau, proveu diferents seleccions."
+
+#: app/templates/no_recommendation.html:9
+msgid "Try Again"
+msgstr "Torna-ho a provar"
+
+#: app/templates/register.html:3 app/templates/register.html:6
+msgid "Registration"
+msgstr "Inscripció"
+
+#: app/templates/reset_password.html:11
+msgid "New password"
+msgstr "Contrasenya nova"
+
+#: app/templates/reset_password.html:18
+msgid "Confirm new password"
+msgstr "Confirmeu la nova contrasenya"
+
+#: app/templates/send_message.html:25
+msgid "Back to Messages"
+msgstr "Torna a Missatges"
+
+#: app/templates/specially4u.html:7
+msgid "Select Fruits"
+msgstr "Seleccioneu Fruites"
+
+#: app/templates/specially4u.html:11
+msgid "Select Alcoholic Drinks"
+msgstr "Seleccioneu Begudes alcohòliques"
+
+#: app/templates/specially4u.html:15
+msgid "Select Non-Alcoholic Drinks"
+msgstr "Seleccioneu Begudes sense alcohol"
+
+#: app/templates/specially4u.html:19
+msgid "Select Others"
+msgstr "Seleccioneu Altres"
+
+#: app/templates/specially4u.html:32
+msgid "Recommended Cocktails"
+msgstr "Còctels recomanats"
+
+#: app/templates/terms_conditions.html:2 app/templates/terms_conditions.html:6
+msgid "Terms and Conditions"
+msgstr "Termes i condicions:"
+
+#: app/templates/terms_conditions.html:9
+msgid "Age Requirement"
+msgstr "Requisit d'edat"
+
+#: app/templates/terms_conditions.html:11
+msgid ""
+"To register on the Barkeeper platform, you must be at least 18 years old."
+" By signing up, you confirm that\n"
+"        you meet this legal requirement."
+msgstr ""
+"Per registrar-se a la plataforma Barkeeper cal tenir com a mínim 18 anys."
+" En registrar-se, ho confirmes\n"
+" compleixes aquest requisit legal."
+
+#: app/templates/terms_conditions.html:15
+msgid "Barkeeper s.r.l Policy"
+msgstr "Política de Barkeeper s.r.l"
+
+#: app/templates/terms_conditions.html:17
+msgid ""
+"Barkeeper s.r.l will never ask for money or financial contributions from "
+"its users. The purpose of\n"
+"        Barkeeper is to present cocktails and promote the drinks we offer"
+" in our bar. It serves as an encyclopedia of\n"
+"        cocktails, providing information and recipes for our users to "
+"explore."
+msgstr ""
+"Barkeeper s.r.l mai demanarà diners ni aportacions econòmiques als seus "
+"usuaris. La finalitat de\n"
+" Barkeeper és per presentar còctels i promocionar les begudes que oferim "
+"al nostre bar. Serveix com a enciclopèdia de\n"
+" còctels, proporcionant informació i receptes perquè els nostres usuaris "
+"puguin explorar."
+
+#: app/templates/terms_conditions.html:22
+msgid "Personal Data Deletion"
+msgstr "Supressió de dades personals"
+
+#: app/templates/terms_conditions.html:24
+msgid ""
+"If you wish to delete your personal data from our platform, you can "
+"request it by sending an email to the\n"
+"        following address:"
+msgstr ""
+"Si voleu eliminar les vostres dades personals de la nostra plataforma, "
+"podeu sol·licitar-ho enviant un correu electrònic a l'adreça\n"
+" següent adreça:"
+
+#: app/templates/terms_conditions.html:29
+msgid "Contact Information"
+msgstr "Informació de contacte"
+
+#: app/templates/terms_conditions.html:31
+msgid "For any inquiries regarding these terms, feel free to reach out to us at:"
+msgstr ""
+"Per a qualsevol consulta sobre aquestes condicions, no dubteu a posar-vos"
+" en contacte amb nosaltres a:"
+
+#: app/templates/terms_conditions.html:33
+msgid "Phone: +34 987654321"
+msgstr "Telèfon: +34 987654321"
+
+#: app/templates/terms_conditions.html:35
+msgid "Email: info@barkeeper.com"
+msgstr "Correu electrònic: info@barkeeper.com"
+
+#: app/templates/terms_conditions.html:37
+msgid "Address: Via delle Scimmie 10, Molazzana, Lucca, Italy"
+msgstr "Adreça: Via delle Scimmie 10, Molazzana, Lucca, Itàlia"
+

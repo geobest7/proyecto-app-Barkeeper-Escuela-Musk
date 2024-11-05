@@ -49,5 +49,5 @@ scikit-learn
 numpy
 
 #requirements for Heroku
-psycopg2
+#psycopg2
 gunicorn

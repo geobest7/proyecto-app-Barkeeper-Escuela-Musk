@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user
 from flask_babel import _
 from flask_paginate import Pagination
 
-from app import app, db, mail
+from app import app, db, mail, get_locale
 from app.forms import RegistrationForm, LoginForm, MessageForm, ResetPasswordRequestForm, SimpleForm, ResetPasswordForm
 from app.models import CocktailDB, User, UserMessage
 from recommender.cocktailRecommender import CocktailRecommender  # Importar el recomendador
@@ -51,7 +51,7 @@ def get_page_args(page_parameter='page', per_page_parameter='per_page'):
 
 @app.route('/')
 def index():
-    return render_template('index.html', title=_('Home'))
+    return render_template('index.html', title=_('Home'), languages=current_app.config['LANGUAGES'])
 
    
 @app.route('/register', methods=['GET', 'POST']) 
@@ -70,11 +70,14 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/set_language', methods=['POST'])
-def set_language():
-    session['language'] = request.form['language']
+@app.route('/set_language/<lang_code>')
+def set_language(lang_code):
+    if lang_code in app.config['LANGUAGES']:
+        session['lang'] = lang_code
+        print(f"Language set to: {lang_code}")  # Verifica si se está guardando
     return redirect(request.referrer)
 
+    
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -260,6 +263,10 @@ def reset_password(token):
         flash(_('Your password has been updated.'), 'success')  # Mensaje de éxito
         return redirect(url_for('login'))  # Redirect to the login page
     return render_template('reset_password.html', form=form)
+
+@app.route('/terms_conditions')
+def terms_conditions():
+    return render_template('terms_conditions.html')
 
 
 @app.route('/logout')

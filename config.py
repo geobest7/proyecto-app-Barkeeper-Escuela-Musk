@@ -25,6 +25,10 @@ class Config(object):
     # Configuración para el manejo de sesiones
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=10)  # Configura la expiración de la sesión a 10 minutos
     
+    BABEL_DEFAULT_LOCALE= 'es'  # Cambia 'es' por el idioma predeterminado de tu aplicación
+    BABEL_DEFAULT_TIMEZONE = 'UTC'  # Cambia si tu aplicación tiene otro timezone predeterminado
+    BABEL_TRANSLATION_DIRECTORIES = 'translations'  
+    
     # Configuración del correo electrónico
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT', 587))  # Si no se proporciona, usar el puerto 587 por defecto (TLS)

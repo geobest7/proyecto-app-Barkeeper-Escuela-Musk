@@ -8,23 +8,25 @@
 <div class="container">
     {% if current_user.is_authenticated %}
     <h1 class="white-text">{{ _('Welcome to your personalized homepage,') }} {{ current_user.username }}!</h1>
-    <p>{{ _('Here you can find content specific to your account.') }}</p>
+    <p>{{ _('At Barkeeper, we’re more than just a bar – we’re a team of expert bartenders passionate about sharing our
+        love for cocktails. Our newly launched website offers a curated selection of our best creations, along with a
+        unique feature where you can choose at least two ingredients, and we’ll suggest the perfect cocktail recipe for
+        you. Whether you\'re an experienced mixologist or a cocktail enthusiast, Barkeeper is here to inspire and guide
+        you in crafting delicious drinks at home. If you have any questions about cocktails or need recommendations,
+        don’t hesitate to send us a message. We’re always happy to help!') }}</p>
     <!-- Add more content specific to authenticated users here -->
     {% else %}
     <h1 class="white-text">{{ _('Welcome to Barkeeper') }}</h1>
     <p class="white-text">{{ _('Please') }} <a href="{{ url_for('login') }}">{{ _('log in') }}</a> {{ _('or') }} <a
             href="{{ url_for('register') }}">{{ _('register') }}</a> {{ _('to get started.') }}</p>
 
-    <!-- Selector de idioma solo para usuarios no autenticados -->
-    <form action="{{ url_for('set_language') }}" method="post" class="language-selector">
-        <label for="language" class="white-text">{{ _('Choose Language') }}</label>
-        <select name="language" id="language" onchange="this.form.submit()">
-            <option value="en" selected>English</option>
-            <option value="es">Español</option>
-            <option value="it">Italiano</option>
-            <option value="ca">Català</option>
-        </select>
-    </form>
+    <!-- Language selector only for unauthenticated users -->
+    <select id="language" name="language" onchange="window.location.href=this.value;">
+        <option value="{{ url_for('set_language', lang_code='en') }}" {% if session['lang'] == 'en' %}selected{% endif %}>English</option>
+        <option value="{{ url_for('set_language', lang_code='es') }}" {% if session['lang'] == 'es' %}selected{% endif %}>Español</option>
+        <option value="{{ url_for('set_language', lang_code='it') }}" {% if session['lang'] == 'it' %}selected{% endif %}>Italiano</option>
+        <option value="{{ url_for('set_language', lang_code='ca') }}" {% if session['lang'] == 'ca' %}selected{% endif %}>Català</option>
+    </select>
     {% endif %}
 </div>
 {% endblock %}

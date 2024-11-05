@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ _('Terms and Conditions') }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>{{ _('Terms and Conditions') }}</h2>
+    <hr>
+
+    <h4>{{ _('Age Requirement') }}</h4>
+    <p>
+        {{ _('To register on the Barkeeper platform, you must be at least 18 years old. By signing up, you confirm that
+        you meet this legal requirement.') }}
+    </p>
+
+    <h4>{{ _('Barkeeper s.r.l Policy') }}</h4>
+    <p>
+        {{ _('Barkeeper s.r.l will never ask for money or financial contributions from its users. The purpose of
+        Barkeeper is to present cocktails and promote the drinks we offer in our bar. It serves as an encyclopedia of
+        cocktails, providing information and recipes for our users to explore.') }}
+    </p>
+
+    <h4>{{ _('Personal Data Deletion') }}</h4>
+    <p>
+        {{ _('If you wish to delete your personal data from our platform, you can request it by sending an email to the
+        following address:') }}
+        <strong>privacy@barkeeper.com</strong>
+    </p>
+
+    <h4>{{ _('Contact Information') }}</h4>
+    <p>
+        {{ _('For any inquiries regarding these terms, feel free to reach out to us at:') }}
+        <br>
+        {{ _('Phone: +34 987654321') }}
+        <br>
+        {{ _('Email: info@barkeeper.com') }}
+        <br>
+        {{ _('Address: Via delle Scimmie 10, Molazzana, Lucca, Italy') }}
+    </p>
+
+</div>
+{% endblock %}

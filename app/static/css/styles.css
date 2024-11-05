@@ -1,12 +1,51 @@
 /* Estilo para el fondo de la página principal */
 body.index-page {
     background-image: url('../images/index-background.jpg');
-    background-size: cover; /* Asegura que la imagen cubra toda la página */
-    background-position: center; /* Centra la imagen en la página */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover;
+    /* Asegura que la imagen cubra toda la página */
+    background-position: center;
+    /* Centra la imagen en la página */
+    background-repeat: no-repeat;
+    /* Evita que la imagen se repita */
 }
 
 /* Estilo para el contenido de la página */
 .white-text {
     color: white;
+}
+
+/* Asegura que el body ocupe al menos la altura total de la ventana */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* El contenedor principal toma el espacio disponible */
+.container {
+    flex: 1;
+}
+
+/* Posiciona el footer en la parte inferior */
+.footer {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+/* Para que el body se comporte como un flex container */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Hace que el body ocupe toda la altura de la pantalla */
+}
+
+/* Para que el contenido principal crezca si es necesario */
+.container {
+    flex-grow: 1;
 }
