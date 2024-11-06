@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user
 from flask_babel import _
 from flask_paginate import Pagination
 
-from app import app, db, mail, get_locale
+from app import app, db, mail
 from app.forms import RegistrationForm, LoginForm, MessageForm, ResetPasswordRequestForm, SimpleForm, ResetPasswordForm
 from app.models import CocktailDB, User, UserMessage
 from recommender.cocktailRecommender import CocktailRecommender  # Importar el recomendador
@@ -70,11 +70,13 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/set_language/<lang_code>')
-def set_language(lang_code):
-    if lang_code in app.config['LANGUAGES']:
-        session['lang'] = lang_code
-        print(f"Language set to: {lang_code}")  # Verifica si se está guardando
+@app.route('/change_language/<language>', methods=['POST'])
+def change_language(language):
+    # Cambia el idioma solo si el idioma es válido
+    if language in app.config['LANGUAGES']:
+        session['lang'] = language
+        print(session)
+    # Redirige de nuevo al lugar donde estaba el usuario
     return redirect(request.referrer)
 
     

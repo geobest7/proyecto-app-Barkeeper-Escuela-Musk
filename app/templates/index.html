@@ -21,12 +21,18 @@
             href="{{ url_for('register') }}">{{ _('register') }}</a> {{ _('to get started.') }}</p>
 
     <!-- Language selector only for unauthenticated users -->
-    <select id="language" name="language" onchange="window.location.href=this.value;">
-        <option value="{{ url_for('set_language', lang_code='en') }}" {% if session['lang'] == 'en' %}selected{% endif %}>English</option>
-        <option value="{{ url_for('set_language', lang_code='es') }}" {% if session['lang'] == 'es' %}selected{% endif %}>Español</option>
-        <option value="{{ url_for('set_language', lang_code='it') }}" {% if session['lang'] == 'it' %}selected{% endif %}>Italiano</option>
-        <option value="{{ url_for('set_language', lang_code='ca') }}" {% if session['lang'] == 'ca' %}selected{% endif %}>Català</option>
-    </select>
+    <form method="post" action="{{ url_for('change_language', language='en') }}">
+        <button type="submit">{{ _('English') }}</button>
+    </form>
+    <form method="post" action="{{ url_for('change_language', language='es') }}">
+        <button type="submit">{{ _('Español') }}</button>
+    </form>
+    <form method="post" action="{{ url_for('change_language', language='it') }}">
+        <button type="submit">{{ _('Italiano') }}</button>
+    </form>
+    <form method="post" action="{{ url_for('change_language', language='ca') }}">
+        <button type="submit">{{ _('Català') }}</button>
+    </form>
     {% endif %}
 </div>
 {% endblock %}
